@@ -32,7 +32,23 @@
  Of course, your expense report is much larger. Find the two entries that sum to 2020; what do you get if you multiply them together?
  */
 function repair(report) {
-    //TODO
+
+    const target = 2020;
+
+    const result = report
+        .split('\n')
+        .filter(n => n !== '')
+        .map(n => Number(n))
+        .reduce( (resultFound, current, index, collection) => {
+            if(resultFound) return resultFound;
+
+            const next = collection.slice(index + 1).find( next => (current + next) === target  );
+            if(next) {
+                return {current, next};
+            }
+        }, undefined );
+
+    return result.current * result.next;
 }
 
 module.exports = repair;
